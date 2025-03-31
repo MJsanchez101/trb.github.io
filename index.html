@@ -1,308 +1,1974 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firstflight Travels</title>
-    <link rel="icon" href="./files/logo.png">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet"
-    href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-   
+    <title>Our Story - Relationship Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+        :root { /* Keep color variables */ }
+        * { font-family: 'Poppins', sans-serif; transition: all 0.3s ease; }
+        .script-font { font-family: 'Dancing Script', cursive; }
+        body { background-color: #fef6f6; color: #333; overflow-x: hidden; }
+        .card { border-radius: 15px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card:hover:not(.modal-card) { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+        .floating { animation: floating 3s ease-in-out infinite; }
+        @keyframes floating { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
+        .gradient-bg { background: linear-gradient(120deg, #ffdde1, #ee9ca7, #ffdde1); background-size: 200% 200%; animation: gradient 15s ease infinite; }
+        .memory-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%); }
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .btn { transition: all 0.3s ease; }
+        .btn:hover { transform: scale(1.05); }
+        #particles-js { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+        /* Dark Theme Styles */
+        body.dark { background-color: #1a202c; color: #e2e8f0; }
+        body.dark .bg-white { background-color: #2d3748; }
+        body.dark .text-gray-700 { color: #a0aec0; }
+        body.dark .text-gray-600 { color: #cbd5e0; }
+        body.dark .text-gray-500 { color: #a0aec0; }
+        body.dark .text-gray-800 { color: #e2e8f0; }
+        body.dark .text-gray-300 { color: #718096; }
+        body.dark .text-gray-200 { color: #a0aec0; }
+        body.dark .text-pink-600, body.dark .text-pink-700 { color: #f687b3; }
+        body.dark .text-teal-600, body.dark .text-teal-700 { color: #68d391; }
+        body.dark .bg-pink-50, body.dark .bg-pink-100 { background-color: #4a304d; }
+        body.dark .bg-teal-50, body.dark .bg-teal-100 { background-color: #2c5282; }
+        body.dark .border-pink-300 { border-color: #f687b3; }
+        body.dark .border-teal-300 { border-color: #68d391; }
+        body.dark nav { background-color: #2d3748; }
+        body.dark footer { background-color: #2d3748; }
+        body.dark .shadow-inner { box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2); }
+        body.dark .border-gray-300 { border-color: #4a5568; }
+        body.dark .hover\:bg-gray-100:hover { background-color: #4a5568; }
+        body.dark .text-gray-400 { color: #718096; }
+        body.dark .bg-gray-100 { background-color: #4a5568; }
+        body.dark .bg-gray-200 { background-color: #4a5568; }
+        body.dark .hover\:bg-pink-100:hover { background-color: #5a3f6a; }
+        body.dark .aspect-square { background-color: #4a5568; }
+        body.dark .bg-black.bg-opacity-90 { background-color: rgba(0,0,0,0.95); }
+        body.dark #love-map { background-color: #2c5282; }
+        /* Ensure modal text input backgrounds match theme */
+        body.dark .modal-input { background-color: #4a5568; border-color: #718096; color: #e2e8f0; }
+        body.dark .modal-input::placeholder { color: #a0aec0; }
+        body.dark .modal-input:focus { ring-color: #f687b3; }
+        /* Ensure select dropdowns match theme */
+        body.dark select { background-color: #4a5568; border-color: #718096; color: #e2e8f0; }
+
+         /* Add styles for edit/delete buttons */
+        .action-button {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            padding: 4px;
+            margin-left: 5px;
+            transition: background 0.2s ease;
+        }
+        .action-button:hover { background: rgba(255, 255, 255, 0.9); }
+        .action-button svg { width: 16px; height: 16px; }
+        body.dark .action-button { background: rgba(45, 55, 72, 0.7); }
+        body.dark .action-button:hover { background: rgba(45, 55, 72, 0.9); }
+        .favorite-btn.favorited svg { fill: #f687b3; stroke: #f687b3; } /* Style for favorited heart */
+
+    </style>
 </head>
-<body>
-
-<!-- Background Video & Header -->
-
-    <div class="banner">
-        <video src="romblon.mp4" type="video/mp4" autoplay muted loop></video>
-    
-    <!-- Header -->
-
-    <div class="content" id="home"> 
-        <nav>
-            <img src="rsu.jpg" class="logo" alt="Logo" title="FirstFlight Travels">
-            
-            <ul class="navbar">
-                <li>
-                    <a href="#home">Home</a>
-                    <a href="#locations">Locations</a>
-                    <a href="#package">Packages</a>
-                    <a href="./about.html">About Me</a>
-                    <a href="./about.html">Contact Me</a>
-                </li>
-            </ul>
-        </nav>
- 
-        <div class="title">
-            <h1>ROMBLON TRAVEL GUIDE</h1>
-            <p>Plan your trip with us and travel around the world with the most memorable places!</p>
-            <a href="./register.html" class="button">Register Now!</a>
-        </div>
-        </div>
-    </div>
-
-<!-- Services -->
-
-<section class="container">
-    <div class="text">
-        <h2>We have the best services available for you!</h2>
-    </div>
-    <div class="rowitems">
-        <div class="container-box">
-        <div class="container-image">
-           <img src="rsu.jpg" alt="Flight Services">
-        </div>
-            <h4>Flight Services</h4>
-            <p>Arrival and Departure</p>
-        </div>
-    
-        <div class="container-box">
-        <div class="container-image">
-           <img src="rsu.jpg" alt="Food Services">
-        </div>
-            <h4>Food Services</h4>
-            <p>Catering</p>
-        </div>
-
-        <div class="container-box">
-        <div class="container-image">
-            <img src="rsu.jpg" alt="Travel Services">
-        </div>
-            <h4>Travel Services</h4>
-            <p>Pick-up/drop</p>
-        </div>
-
-        <div class="container-box">
-        <div class="container-image">
-            <img src="rsu.jpg" alt="Hotel Services">
-        </div>
-            <h4>Hotel Services</h4>
-            <p>Check-in/out</p>
-        </div>
-
-    </div>
-
-    </div>
-
-</section>
-
-<!-- Locations -->
-
-<section class="locations" id="locations">
-    <div class="package-title">
-        <h2>Locations</h2>
-    </div>
-
-    <div class="location-content">
-        
-        <a href="./locations.html#kashmir" target="_blank"><div class="col-content">
-            <img src="bonbon.jpg" alt="">
-            <h5>Bonbon</h5>
-            <p>Beach</p>
-        </div></a>
-
-       
-
-        <a href="./locations.html#istanbul" target="_blank"><div class="col-content">
-            <img src="bonbon.jpg" alt="">
-            <h5>Bonbon</h5>
-            <p>Istanbul</p>
-        </div></a>
-
-        <a href="./locations.html#paris" target="_blank"><div class="col-content">
-            <img src="bonbon.jpg" alt="">
-            <h5>France</h5>
-            <p>Paris</p>
-        </div></a>
-
-        <a href="./locations.html#bali" target="_blank"><div class="col-content">
-            <img src="bonbon.jpg" alt="">
-            <h5>Indonesia</h5>
-            <p>Bali</p>
-        </div></a>
-
-        <a href="./locations.html#dubai" target="_blank"><div class="col-content">
-            <img src="bonbon.jpg" alt="">
-            <h5>United Arab Emirates</h5>
-            <p>Dubai</p>
-        </div></a>
-
-        <a href="./locations.html#geneva" target="_blank"><div class="col-content">
-            <img src="bonbon.jpg" alt="">
-            <h5>Switzerland</h5>
-            <p>Geneva</p>
-        </div></a>
-
-        <a href="./locations.html#port-blair" target="_blank"><div class="col-content">
-            <img src="bonbon.jpg" alt="">
-            <h5>Andaman & Nicobar</h5>
-            <p>Port Blair</p>
-        </div></a>
-
-        <a href="./locations.html#rome" target="_blank"><div class="col-content">
-            <img src="bonbon.jpg" alt="">
-            <h5>Italy</h5>
-            <p>Rome</p>
-        </div></a>
-
-    </div>
-</section>
-
-<!-- Packages -->
-
-<section class="package" id="package">
-    <div class="package-title">
-        <h2>Packages</h2>
-    </div>
-
-    <div class="package-content">
-        
-        <div class="box">
-            <div class="image">
-                <img src="hotel1.jpg" alt="">
-                <h3>Rs.9,999/-</h3>
+<body class="min-h-screen">
+    <div id="particles-js"></div> <nav class="bg-white shadow-md fixed w-full z-10 py-4 px-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-pink-500 script-font">Our<span class="text-teal-500">Story</span></h1>
             </div>
-        
-        <div class="dest-content">
-            <div class="location">
-                <h4>Bronze</h4>
-                <ul class="pac-details">
-                    <li>2 Star Hotel</li>
-                    <li>5 Nights Stay</li>
-                    <li>Free photo Session</li>
-                    <li>Friendly Tour Guide</li>
-                    <li>24/7 Customer Help Center</li>
-                </ul>
+            <div class="hidden md:flex space-x-6">
+                <a href="#dashboard" class="text-gray-700 hover:text-pink-500 font-medium">Dashboard</a>
+                <a href="#memories" class="text-gray-700 hover:text-pink-500 font-medium">Memories</a>
+                <a href="#gallery" class="text-gray-700 hover:text-pink-500 font-medium">Gallery</a>
+                <a href="#map" class="text-gray-700 hover:text-pink-500 font-medium">Love Map</a>
+                <a href="#notes" class="text-gray-700 hover:text-pink-500 font-medium">Notes</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button id="settings-btn" class="p-2 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200" title="Settings">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /> </svg>
+                </button>
+                 <button id="voice-btn" class="p-2 rounded-full bg-pink-100 text-pink-500 hover:bg-pink-200" title="Voice Commands">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /> </svg>
+                 </button>
+                <button id="theme-toggle" class="p-2 rounded-full bg-teal-100 text-teal-500 hover:bg-teal-200" title="Toggle Theme">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /> </svg>
+                </button>
             </div>
         </div>
-        </div>
-        
-        <div class="box">
-            <div class="image">
-                <img src="hotel1.jpg" alt="">
-                <h3>Rs.19,999/-</h3>
-            </div>
-        
-        <div class="dest-content">
-            <div class="location">
-                <h4>Silver</h4>
-                <ul class="pac-details">
-                    <li>3 Star Hotel</li>
-                    <li>7 Nights Stay</li>
-                    <li>Free photo Session</li>
-                    <li>Friendly Tour Guide</li>
-                    <li>24/7 Customer Help Center</li>
-                </ul>
-            </div>
-        </div>
-        </div>
+    </nav>
 
-        <div class="box">
-            <div class="image">
-                <img src="hotel1.jpg" alt="">
-                <h3>Rs.29,999/-</h3>
-            </div>
-        
-        <div class="dest-content">
-            <div class="location">
-                <h4>Gold</h4>
-                <ul class="pac-details">
-                    <li>4 Star Hotel</li>
-                    <li>10 Nights Stay</li>
-                    <li>Breakfast and Dinner</li>
-                    <li>Free photo Session</li>
-                    <li>Friendly Tour Guide</li>
-                    <li>24/7 Customer Help Center</li>
-                </ul>
-            </div>
-        </div>
-        </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="hotel1.jpg" alt="">
-                <h3>Rs.39,999/-</h3>
-            </div>
-        
-        <div class="dest-content">
-            <div class="location">
-                <h4>Platinum</h4>
-                <ul class="pac-details">
-                    <li>5 Star Hotel</li>
-                    <li>14 Nights Stay</li>
-                    <li>Breakfast, Lunch and Dinner</li>
-                    <li>Bornfire</li>
-                    <li>Free photo Session</li>
-                    <li>Friendly Tour Guide</li>
-                    <li>24/7 Customer Help Center</li>
-                </ul>
-            </div>
-        </div>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- Newsletter -->
-
-<section class="newsletter">
-    <div class="newstext">
-        <h2>Newsletter</h2>
-        <p>Subscribe to get offers and latest<br>updates every week!</p>
-    </div>
-
-    <div class="send">
-        <form action="">
-            <input type="email" name="emailid" placeholder="E-mail" required>
-            <input type="submit" value="Subscribe">
-        </form>
-    </div>
-
-</section>
-
-<!-- Footer -->
-
-<section class="footer">
-    <div class="foot">
-        <div class="footer-content">
-            
-            <div class="footlinks">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="./register.html">Register</a></li>
-                    <li><a href="./about.html">About Us</a></li>
-                    <li><a href="./contact.html">Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footlinks">
-                <h4>Connect</h4>
-                <div class="social">
-                    <a href="https://www.facebook.com/johncarlo.galindez.58" target="_blank"><i class='bx bxl-facebook'></i></a>
-                    <a href="#" target="_blank"><i class='bx bxl-instagram' ></i></a>
-                    <a href="#" target="_blank"><i class='bx bxl-twitter' ></i></a>
-                    <a href="#" target="_blank"><i class='bx bxl-linkedin' ></i></a>
-                    <a href="#" target="_blank"><i class='bx bxl-youtube' ></i></a>
-                    <a href="#" target="_blank"><i class='bx bxl-wordpress' ></i></a>
-                    <a href="#" target="_blank"><i class='bx bxl-github'></i></a>
+    <main class="container mx-auto pt-24 pb-12 px-4">
+        <section class="relative h-96 rounded-3xl overflow-hidden mb-12">
+             <div class="absolute inset-0 bg-gradient-to-br from-pink-300 via-pink-100 to-teal-100 opacity-60"></div>
+            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                <h2 id="greeting" class="text-4xl md:text-6xl font-bold text-pink-700 mb-4 script-font">Loading...</h2>
+                <p id="date-time" class="text-xl text-teal-700 font-medium"></p>
+                <div class="mt-8 bg-white bg-opacity-70 px-8 py-4 rounded-full shadow">
+                    <p class="text-gray-800 italic">"Every love story is beautiful, but ours is my favorite."</p>
                 </div>
             </div>
-            
+        </section>
+
+        <section id="dashboard" class="my-16">
+            <h2 class="text-3xl font-bold text-pink-600 mb-8 script-font text-center">Our Journey Together</h2>
+            <div id="dashboard-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card bg-white p-6 floating">
+                     <div class="flex flex-col items-center"> <div class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center mb-4"> <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /> </svg> </div> <h3 class="text-xl font-semibold mb-2 text-center">Days Together</h3> <div class="counter-value text-5xl font-bold text-pink-600" id="days-count"> 0 </div> <p class="text-gray-500 mt-2 text-center">days of loving each other</p> </div>
+                </div>
+                 <div class="card bg-white p-6 floating">
+                    <div class="flex flex-col items-center"> <div class="w-16 h-16 rounded-full bg-teal-100 flex items-center justify-center mb-4"> <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /> </svg> </div> <h3 class="text-xl font-semibold mb-2 text-center">Next Anniversary</h3> <div id="next-anniversary" class="text-3xl font-bold text-teal-600"> Loading... </div> <p class="text-gray-500 mt-2 text-center">until we celebrate again</p> </div>
+                </div>
+                <div class="card bg-white p-6 floating">
+                    <div class="flex flex-col items-center"> <div class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center mb-4"> <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /> </svg> </div> <h3 class="text-xl font-semibold mb-2 text-center">Special Moments</h3> <div class="counter-value text-5xl font-bold text-pink-600" id="moments-count"> 0 </div> <p class="text-gray-500 mt-2 text-center">memories & photos</p> </div>
+                </div>
+                <div class="card bg-white p-6 floating">
+                    <div class="flex flex-col items-center"> <div class="w-16 h-16 rounded-full bg-teal-100 flex items-center justify-center mb-4"> <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /> </svg> </div> <h3 class="text-xl font-semibold mb-2 text-center">Upcoming Event</h3> <div id="next-event-name" class="text-2xl font-bold text-teal-600 text-center"> Add an Event </div> <div id="next-event-date" class="text-gray-500 mt-2 text-center"> -- </div> <button id="add-event-btn" class="mt-3 text-sm text-teal-600 hover:underline">Manage Events</button> </div>
+                </div>
+            </div>
+             <div id="celebration-info" class="mt-6 text-center"></div>
+        </section>
+
+        <section id="memories" class="my-16">
+            <h2 class="text-3xl font-bold text-pink-600 mb-8 script-font text-center">Our Precious Memories</h2>
+            <div class="card bg-white p-8">
+                 <div id="memories-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                     <p id="memories-placeholder" class="text-gray-500 md:col-span-3 text-center py-8">Add your first memory!</p>
+                 </div>
+                <div class="text-center mt-8">
+                    <button id="add-memory" class="btn bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full text-lg shadow-lg"> Add New Memory </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="my-16">
+            <h2 class="text-3xl font-bold text-pink-600 mb-8 script-font text-center">Our Photo Gallery</h2>
+            <div class="card bg-white p-8">
+                <div class="mb-8 p-6 border-2 border-dashed border-pink-300 rounded-lg text-center bg-pink-50 dark:bg-pink-100/10" id="drop-zone">
+                    <div class="mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /> </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-teal-600">Upload Your Special Moments</h3>
+                    <p class="text-gray-600 mb-4">Drag and drop photos or click to select. <strong class="text-red-500">Warning: Large photos might not save correctly due to browser limits!</strong></p>
+                    <input type="file" id="image-upload" class="hidden" accept="image/*" multiple>
+                    <button id="upload-btn" class="btn bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-full shadow-lg"> Choose Photos </button>
+                </div>
+
+                <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
+                    <div class="flex space-x-2 flex-wrap gap-2" id="gallery-filter-buttons">
+                        <button data-filter="all" class="px-4 py-2 rounded-full bg-pink-500 text-white font-medium filter-btn-active">All Photos</button>
+                        <button data-filter="favorites" class="px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-pink-100">Favorites</button>
+                        <button data-filter="dates" class="px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-pink-100">Dates</button>
+                        <button data-filter="trips" class="px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-pink-100">Trips</button>
+                        <button data-filter="events" class="px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-pink-100">Events</button>
+                        <button data-filter="other" class="px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-medium hover:bg-pink-100">Other</button>
+                    </div>
+                    <div class="flex items-center">
+                        <label for="gallery-sort" class="text-gray-600 mr-2">Sort by:</label>
+                        <select id="gallery-sort" class="bg-white border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="title_az">Title A-Z</option>
+                             <option value="title_za">Title Z-A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                     <p id="gallery-placeholder" class="text-gray-500 sm:col-span-2 md:col-span-3 lg:col-span-4 text-center py-8">Upload your first photo!</p>
+                </div>
+
+                </div>
+        </section>
+
+        <section id="map" class="my-16">
+            <h2 class="text-3xl font-bold text-pink-600 mb-8 script-font text-center">Our Love Map</h2>
+            <div class="card bg-white p-8">
+                <div id="love-map" class="w-full h-96 rounded-lg overflow-hidden relative bg-teal-50">
+                    <div class="absolute inset-0 flex items-center justify-center flex-col text-center p-4">
+                        <div class="text-6xl mb-4">🗺️</div>
+                        <p class="text-xl text-teal-600 font-semibold">Map Your Adventures</p>
+                        <p class="text-sm text-gray-500 mt-2">(Map implementation requires external libraries/APIs - currently a placeholder)</p>
+                         <p class="text-xs text-gray-400 mt-4">Future ideas: Add pins for places visited, link to memories or photos.</p>
+                    </div>
+                </div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                     <div class="card bg-pink-50 p-4 flex items-center"> <div class="w-3 h-3 rounded-full bg-pink-500 mr-3"></div> <span>Paris, France</span> </div> <div class="card bg-teal-50 p-4 flex items-center"> <div class="w-3 h-3 rounded-full bg-teal-500 mr-3"></div> <span>Tokyo, Japan</span> </div> <div class="card bg-pink-50 p-4 flex items-center"> <div class="w-3 h-3 rounded-full bg-pink-500 mr-3"></div> <span>New York, USA</span> </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="notes" class="my-16">
+            <h2 class="text-3xl font-bold text-pink-600 mb-8 script-font text-center">Love Notes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card bg-white p-6">
+                    <h3 class="text-xl font-semibold mb-6 text-center text-teal-600">Write a Love Note</h3>
+                     <form id="add-note-form">
+                        <div class="space-y-4">
+                             <input type="text" id="note-title" placeholder="Title" required class="w-full bg-pink-50 border border-pink-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-pink-400 modal-input">
+                             <textarea id="note-content" rows="5" placeholder="Write your thoughts..." required class="w-full bg-pink-50 border border-pink-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-pink-400 modal-input"></textarea>
+                            <div class="flex justify-end">
+                                <button type="submit" id="save-note-btn" class="btn bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-full shadow">Save Note</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card bg-white p-6">
+                    <h3 class="text-xl font-semibold mb-6 text-center text-pink-600">Saved Notes</h3>
+                     <div id="notes-container" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                         <p id="notes-placeholder" class="text-gray-500 text-center py-8">Add your first note!</p>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white shadow-inner text-center p-6 mt-12">
+        <p class="text-gray-600">Developer<span class="text-pink-500"> John Carlo Galindez</span> | <span id="current-year"></span></p>
+         <p class="text-xs text-gray-400 mt-2">Data is stored locally in your browser via localStorage.</p>
+    </footer>
+
+    <div id="generic-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-50 p-4">
+        <div class="card modal-card bg-white p-8 max-w-md w-full relative">
+             <button class="absolute top-4 right-4 text-gray-500 hover:text-red-500" onclick="closeModal('generic-modal')">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /> </svg>
+             </button>
+            <h3 id="modal-title" class="text-2xl font-bold text-pink-600 mb-6 text-center">Modal Title</h3>
+            <form id="modal-form">
+                <input type="hidden" id="edit-id"> <div id="modal-body" class="space-y-4">
+                    </div>
+                <div class="flex justify-end space-x-4 mt-6">
+                     <button type="button" class="px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100" onclick="closeModal('generic-modal')">Cancel</button>
+                     <button type="submit" id="modal-save-btn" class="btn bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-full shadow">Save</button>
+                 </div>
+            </form>
         </div>
     </div>
 
-    <div class="end">
-        <p> Romblon Tablas Travels All Rights Reserved.<br>Website developed by: John Carlo Galindez</p>
+     <div id="image-viewer-modal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50">
+         <div class="relative w-full max-w-6xl p-4">
+             <button id="close-viewer" class="absolute top-0 right-0 m-4 text-white hover:text-pink-300 z-10">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /> </svg>
+             </button>
+            <div class="flex items-center justify-center">
+                 <button id="prev-image" class="p-2 text-white hover:text-pink-300 mr-4 opacity-50 hover:opacity-100 transition-opacity">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /> </svg>
+                 </button>
+                <div class="image-container relative bg-gray-800 rounded-lg overflow-hidden max-w-[80vw]">
+                     <img id="current-image" src="" alt="Image Preview" class="max-h-[80vh] max-w-full object-contain mx-auto block">
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white">
+                         <h3 id="image-title" class="text-xl font-semibold">Image Title</h3>
+                         <p id="image-description" class="text-sm mt-1">Image description or details</p>
+                         <p id="image-date" class="text-xs text-gray-300 mt-1">Date taken</p>
+                    </div>
+                    <button id="edit-photo-details-btn" class="absolute top-2 left-2 p-2 bg-black bg-opacity-50 rounded-full text-white hover:text-pink-300" title="Edit Details">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                    </button>
+                </div>
+                 <button id="next-image" class="p-2 text-white hover:text-pink-300 ml-4 opacity-50 hover:opacity-100 transition-opacity">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /> </svg>
+                 </button>
+            </div>
+        </div>
     </div>
-</section>
+
+    <div id="loading-indicator" class="fixed inset-0 bg-white bg-opacity-75 hidden items-center justify-center z-[999]">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-500"></div>
+    </div>
 
 
- 
+    <script>
+        // ---- Application State & Configuration ----
+        const APP_STORAGE_KEY = 'relationshipDashboardData_v1'; // Change version if data structure changes significantly
+
+        // Default application data structure
+        const defaultAppData = {
+            settings: {
+                user1Name: "Partner 1",
+                user2Name: "Partner 2",
+                startDate: "", // YYYY-MM-DD
+                theme: 'light'
+            },
+            memories: [], // { id, title, date, description, icon }
+            notes: [],    // { id, title, content, date }
+            photos: [],   // { id, title, description, date, category, base64src, isFavorite }
+            events: []    // { id, name, date, description }
+        };
+
+        let appData = {}; // Holds the current application data
+        let currentEditingId = null; // To track which item is being edited
+        let currentPhotoIndex = 0; // For image viewer navigation
+        let filteredPhotos = []; // To hold the currently displayed photos after filtering/sorting
+
+        // ---- DOM Element References ----
+        // (Get references to frequently used elements after DOM is loaded)
+        let greetingEl, dateTimeEl, daysCountEl, nextAnniversaryEl, momentsCountEl, nextEventNameEl, nextEventDateEl;
+        let memoriesGridEl, memoriesPlaceholderEl;
+        let galleryGridEl, galleryPlaceholderEl, galleryFilterButtonsEl, gallerySortEl;
+        let notesContainerEl, notesPlaceholderEl;
+        let addNoteFormEl, noteTitleInputEl, noteContentInputEl;
+        let themeToggleBtn, settingsBtn;
+        let modalEl, modalTitleEl, modalFormEl, modalBodyEl, modalSaveBtn, editIdInput;
+        let imageViewerModalEl, closeViewerBtn, currentImageEl, imageTitleEl, imageDescriptionEl, imageDateEl, prevImageBtn, nextImageBtn, editPhotoDetailsBtn;
+        let uploadBtn, imageUploadInput, dropZoneEl;
+        let dashboardGridEl, celebrationInfoEl;
+        let loadingIndicatorEl;
+
+        // ---- Initialization ----
+
+        document.addEventListener('DOMContentLoaded', initApp);
+
+        function initApp() {
+            console.log("Initializing App...");
+            // Get DOM element references
+            getDOMReferences();
+
+            // Load data from localStorage or use defaults
+            loadData();
+
+            // Apply initial UI settings (theme, greeting, etc.)
+            initUI();
+
+             // Update dashboard counters and dynamic content
+            updateDashboardCounters();
+            updateCelebrationInfo(); // For monthsary/anniversary banners/info
+
+            // Render dynamic content sections
+            renderMemories();
+            renderGallery(); // Initial render (all photos, default sort)
+            renderNotes();
+            renderEventsList(); // Render list for event management modal
+
+            // Setup all event listeners
+            setupEventListeners();
+
+            // Initialize particles.js
+            initParticles(appData.settings.theme === 'dark');
+
+            // Counter animations (optional, keep if liked)
+            animateCounters();
+
+            // Hide loading indicator if it was shown
+             hideLoading();
+
+             console.log("App Initialized.");
+        }
+
+         function getDOMReferences() {
+            greetingEl = document.getElementById('greeting');
+            dateTimeEl = document.getElementById('date-time');
+            daysCountEl = document.getElementById('days-count');
+            nextAnniversaryEl = document.getElementById('next-anniversary');
+            momentsCountEl = document.getElementById('moments-count');
+            nextEventNameEl = document.getElementById('next-event-name');
+            nextEventDateEl = document.getElementById('next-event-date');
+            dashboardGridEl = document.getElementById('dashboard-grid');
+            celebrationInfoEl = document.getElementById('celebration-info');
+
+            memoriesGridEl = document.getElementById('memories-grid');
+            memoriesPlaceholderEl = document.getElementById('memories-placeholder');
+
+            galleryGridEl = document.getElementById('gallery-grid');
+            galleryPlaceholderEl = document.getElementById('gallery-placeholder');
+            galleryFilterButtonsEl = document.getElementById('gallery-filter-buttons');
+            gallerySortEl = document.getElementById('gallery-sort');
+
+            notesContainerEl = document.getElementById('notes-container');
+            notesPlaceholderEl = document.getElementById('notes-placeholder');
+            addNoteFormEl = document.getElementById('add-note-form');
+            noteTitleInputEl = document.getElementById('note-title');
+            noteContentInputEl = document.getElementById('note-content');
+
+            themeToggleBtn = document.getElementById('theme-toggle');
+            settingsBtn = document.getElementById('settings-btn');
+
+            modalEl = document.getElementById('generic-modal');
+            modalTitleEl = document.getElementById('modal-title');
+            modalFormEl = document.getElementById('modal-form');
+            modalBodyEl = document.getElementById('modal-body');
+            modalSaveBtn = document.getElementById('modal-save-btn');
+            editIdInput = document.getElementById('edit-id');
+
+            imageViewerModalEl = document.getElementById('image-viewer-modal');
+            closeViewerBtn = document.getElementById('close-viewer');
+            currentImageEl = document.getElementById('current-image');
+            imageTitleEl = document.getElementById('image-title');
+            imageDescriptionEl = document.getElementById('image-description');
+            imageDateEl = document.getElementById('image-date');
+            prevImageBtn = document.getElementById('prev-image');
+            nextImageBtn = document.getElementById('next-image');
+            editPhotoDetailsBtn = document.getElementById('edit-photo-details-btn');
+
+
+            uploadBtn = document.getElementById('upload-btn');
+            imageUploadInput = document.getElementById('image-upload');
+            dropZoneEl = document.getElementById('drop-zone');
+
+            loadingIndicatorEl = document.getElementById('loading-indicator');
+
+             // Ensure elements exist before proceeding
+            if (!greetingEl || !dateTimeEl || !daysCountEl || !nextAnniversaryEl || !momentsCountEl ||
+                !nextEventNameEl || !nextEventDateEl || !dashboardGridEl || !celebrationInfoEl ||
+                !memoriesGridEl || !memoriesPlaceholderEl || !galleryGridEl || !galleryPlaceholderEl ||
+                !galleryFilterButtonsEl || !gallerySortEl || !notesContainerEl || !notesPlaceholderEl ||
+                !addNoteFormEl || !noteTitleInputEl || !noteContentInputEl || !themeToggleBtn || !settingsBtn ||
+                !modalEl || !modalTitleEl || !modalFormEl || !modalBodyEl || !modalSaveBtn || !editIdInput ||
+                !imageViewerModalEl || !closeViewerBtn || !currentImageEl || !imageTitleEl || !imageDescriptionEl ||
+                !imageDateEl || !prevImageBtn || !nextImageBtn || !editPhotoDetailsBtn || !uploadBtn ||
+                !imageUploadInput || !dropZoneEl || !loadingIndicatorEl) {
+                console.error("CRITICAL ERROR: One or more essential DOM elements could not be found! Check IDs.");
+                alert("Error initializing the page. Some elements are missing. Please check the console for details.");
+                return; // Stop initialization if critical elements are missing
+            }
+        }
+
+        // ---- Data Management ----
+
+        function loadData() {
+            console.log("Loading data from localStorage...");
+            try {
+                const storedData = localStorage.getItem(APP_STORAGE_KEY);
+                if (storedData) {
+                    const parsedData = JSON.parse(storedData);
+                    // Deep merge loaded data with defaults to ensure all keys exist
+                    appData = deepMerge(JSON.parse(JSON.stringify(defaultAppData)), parsedData);
+                    console.log("Data loaded successfully:", appData);
+                } else {
+                    // Use a deep copy of defaults if nothing is stored
+                    appData = JSON.parse(JSON.stringify(defaultAppData));
+                    console.log("No stored data found, using defaults.");
+                }
+            } catch (error) {
+                console.error("Error loading or parsing data from localStorage:", error);
+                // Fallback to defaults in case of error
+                appData = JSON.parse(JSON.stringify(defaultAppData));
+                alert("Could not load saved data. Using default settings. Your previous data might be lost or corrupted.");
+            }
+             // Ensure essential arrays exist even if loaded data was malformed
+            appData.memories = appData.memories || [];
+            appData.notes = appData.notes || [];
+            appData.photos = appData.photos || [];
+            appData.events = appData.events || [];
+            appData.settings = appData.settings || defaultAppData.settings;
+        }
+
+        function saveData() {
+             // console.log("Saving data to localStorage:", appData); // Can be verbose, uncomment for debugging
+            try {
+                localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(appData));
+            } catch (error) {
+                console.error("Error saving data to localStorage:", error);
+                // Potentially inform the user if storage is full
+                if (error.name === 'QuotaExceededError') {
+                    alert("Could not save data. Browser storage might be full. Try removing large photos or clearing site data.");
+                } else {
+                    alert("An error occurred while saving data. Please check the console.");
+                }
+            }
+        }
+
+        // Simple deep merge function (handles basic objects and arrays)
+        function deepMerge(target, source) {
+            for (const key in source) {
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    const targetValue = target[key];
+                    const sourceValue = source[key];
+
+                    if (sourceValue && typeof sourceValue === 'object' && !Array.isArray(sourceValue) &&
+                        targetValue && typeof targetValue === 'object' && !Array.isArray(targetValue)) {
+                        deepMerge(targetValue, sourceValue); // Recurse for nested objects
+                    } else {
+                        target[key] = sourceValue; // Assign source value (overwrites or adds)
+                    }
+                }
+            }
+            return target;
+        }
+
+
+        // ---- UI Initialization & Updates ----
+
+        function initUI() {
+            // Set Theme
+            setTheme(appData.settings.theme || 'light'); // Default to light if undefined
+
+            // Set Greeting
+            updateGreeting();
+
+            // Set Date & Time (updates every second)
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+
+            // Set Footer Year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        }
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark');
+                 themeToggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`; // Sun icon
+                 themeToggleBtn.title = "Switch to Light Mode";
+            } else {
+                document.body.classList.remove('dark');
+                 themeToggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`; // Moon icon
+                 themeToggleBtn.title = "Switch to Dark Mode";
+            }
+            appData.settings.theme = theme;
+            // Re-initialize particles with the correct theme colors if particles.js is loaded
+            if (window.particlesJS) {
+                 initParticles(theme === 'dark');
+            }
+        }
+
+        function updateGreeting() {
+            const name1 = appData.settings.user1Name || "Partner 1";
+            const name2 = appData.settings.user2Name || "Partner 2";
+            greetingEl.textContent = `${name1} & ${name2}`;
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            dateTimeEl.textContent = now.toLocaleDateString(undefined, options);
+        }
+
+        function updateDashboardCounters() {
+            const startDateStr = appData.settings.startDate;
+            let daysTogether = 0;
+            let nextAnniversaryText = "Set Start Date";
+            let nextEventText = "Add an Event";
+            let nextEventDateText = "--";
+
+            if (startDateStr) {
+                try {
+                    const startDate = new Date(startDateStr + 'T00:00:00'); // Ensure it parses as local time start of day
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0); // Compare dates only
+
+                     if (!isNaN(startDate.getTime())) { // Check if date is valid
+                         // Days Together
+                        const diffTime = Math.abs(today - startDate);
+                        daysTogether = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        if (today >= startDate) {
+                            daysTogether +=1; // Include the start day
+                        } else {
+                            daysTogether = 0; // If start date is in future
+                        }
+
+
+                        // Next Anniversary
+                        let nextAnniversaryDate = new Date(startDate);
+                        nextAnniversaryDate.setFullYear(today.getFullYear());
+                        // If the anniversary this year has already passed, set it for next year
+                        if (nextAnniversaryDate < today) {
+                            nextAnniversaryDate.setFullYear(today.getFullYear() + 1);
+                        }
+                        const anniDiffTime = nextAnniversaryDate - today;
+                        const daysUntilAnniversary = Math.ceil(anniDiffTime / (1000 * 60 * 60 * 24));
+
+                        if (daysUntilAnniversary === 0) {
+                            nextAnniversaryText = "Happy Anniversary!";
+                        } else if (daysUntilAnniversary === 1) {
+                            nextAnniversaryText = "Tomorrow!";
+                         } else if (daysUntilAnniversary <= 7) {
+                            nextAnniversaryText = `${daysUntilAnniversary} days`;
+                        } else if (daysUntilAnniversary <= 31) {
+                            nextAnniversaryText = `${Math.round(daysUntilAnniversary / 7)} weeks`;
+                        } else {
+                            nextAnniversaryText = nextAnniversaryDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+                        }
+
+                    } else {
+                         console.warn("Invalid start date format in settings:", startDateStr);
+                         daysTogether = 0;
+                         nextAnniversaryText = "Invalid Date";
+                     }
+
+                } catch (e) {
+                     console.error("Error calculating date differences:", e);
+                     daysTogether = 0;
+                     nextAnniversaryText = "Error";
+                 }
+            }
+
+            // Upcoming Event
+             const upcomingEvents = appData.events
+                .map(event => ({ ...event, dateObj: new Date(event.date + 'T00:00:00') }))
+                .filter(event => !isNaN(event.dateObj.getTime()) && event.dateObj >= new Date(new Date().setHours(0,0,0,0))) // Valid date and today or in the future
+                .sort((a, b) => a.dateObj - b.dateObj); // Sort by date ascending
+
+            if (upcomingEvents.length > 0) {
+                const nextEvent = upcomingEvents[0];
+                nextEventText = nextEvent.name;
+                nextEventDateText = formatDate(nextEvent.date); // Use helper function for consistency
+            }
+
+            // Update DOM
+            daysCountEl.textContent = daysTogether;
+            nextAnniversaryEl.textContent = nextAnniversaryText;
+            momentsCountEl.textContent = appData.memories.length + appData.photos.length;
+            nextEventNameEl.textContent = nextEventText;
+            nextEventDateEl.textContent = nextEventDateText;
+
+             // Optional: Re-run counter animation if values changed significantly
+            // animateCounters(); // Be careful not to run this too often
+        }
+
+
+         function updateCelebrationInfo() {
+            celebrationInfoEl.innerHTML = ''; // Clear previous messages
+            const startDateStr = appData.settings.startDate;
+            if (!startDateStr) return;
+
+            try {
+                const startDate = new Date(startDateStr + 'T00:00:00');
+                 if (isNaN(startDate.getTime())) return; // Invalid date
+
+                const today = new Date();
+                 today.setHours(0, 0, 0, 0);
+                 const startDay = startDate.getDate();
+                 const startMonth = startDate.getMonth();
+                 const todayDay = today.getDate();
+                 const todayMonth = today.getMonth();
+
+                 // Check for Anniversary
+                 if (startMonth === todayMonth && startDay === todayDay && today > startDate) {
+                     const years = today.getFullYear() - startDate.getFullYear();
+                     if (years > 0) {
+                         const nth = (n) => {
+                            if (n > 3 && n < 21) return 'th'; // exceptions 11th, 12th, 13th
+                             switch (n % 10) {
+                                case 1: return "st";
+                                case 2: return "nd";
+                                case 3: return "rd";
+                                default: return "th";
+                            }
+                         };
+                         celebrationInfoEl.innerHTML = `
+                            <div class="p-4 bg-gradient-to-r from-pink-400 to-teal-400 rounded-lg shadow-lg text-white text-center animate-pulse">
+                                ✨ Happy ${years}${nth(years)} Anniversary! ✨
+                            </div>`;
+                         return; // Don't show monthsary if it's the anniversary
+                    }
+                }
+
+                 // Check for Monthsary (on the same day of the month, but not the anniversary)
+                 if (startDay === todayDay && startDate < today) {
+                    // Calculate months difference carefully
+                    let monthsDiff = (today.getFullYear() - startDate.getFullYear()) * 12;
+                    monthsDiff -= startDate.getMonth();
+                    monthsDiff += today.getMonth();
+                     if (monthsDiff > 0) { // Only show if at least one month has passed
+                         celebrationInfoEl.innerHTML = `
+                             <div class="p-3 bg-gradient-to-r from-pink-200 to-teal-200 rounded-lg shadow text-pink-700 text-center">
+                                 💖 Happy ${monthsDiff} Month${monthsDiff > 1 ? 's' : ''} Together! 💖
+                             </div>`;
+                     }
+                 }
+
+            } catch (e) {
+                console.error("Error checking for celebrations:", e);
+            }
+        }
+
+
+        // ---- Rendering Functions ----
+
+        function renderMemories() {
+            memoriesGridEl.innerHTML = ''; // Clear existing
+            if (appData.memories.length === 0) {
+                memoriesPlaceholderEl.style.display = 'block';
+                return;
+            }
+            memoriesPlaceholderEl.style.display = 'none';
+
+            // Sort memories by date, newest first (optional)
+             const sortedMemories = [...appData.memories].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            sortedMemories.forEach(memory => {
+                const memoryCard = document.createElement('div');
+                memoryCard.className = 'card bg-pink-50 dark:bg-pink-100/10 p-6 relative group'; // Added group for hover effect on buttons
+                memoryCard.innerHTML = `
+                    <div class="flex items-center justify-between mb-3">
+                         <h4 class="text-lg font-semibold text-pink-700 dark:text-pink-400">${escapeHTML(memory.title)}</h4>
+                         <span class="text-sm text-gray-500 dark:text-gray-400">${formatDate(memory.date)}</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">${escapeHTML(memory.description)}</p>
+                     ${memory.icon ? `<div class="text-3xl text-center my-2">${memory.icon}</div>` : ''}
+                    <div class="absolute top-2 right-2 flex opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <button class="action-button edit-memory-btn" data-id="${memory.id}" title="Edit Memory">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                         </button>
+                         <button class="action-button delete-memory-btn" data-id="${memory.id}" title="Delete Memory">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                         </button>
+                    </div>
+                `;
+                memoriesGridEl.appendChild(memoryCard);
+            });
+        }
+
+        function renderGallery() {
+            galleryGridEl.innerHTML = ''; // Clear existing
+
+            // 1. Filtering
+             const activeFilter = galleryFilterButtonsEl.querySelector('.filter-btn-active')?.dataset.filter || 'all';
+             filteredPhotos = appData.photos.filter(photo => {
+                if (activeFilter === 'all') return true;
+                if (activeFilter === 'favorites') return photo.isFavorite;
+                return photo.category && photo.category.toLowerCase() === activeFilter;
+             });
+
+             // 2. Sorting
+             const sortBy = gallerySortEl.value;
+            filteredPhotos.sort((a, b) => {
+                switch (sortBy) {
+                    case 'oldest':
+                        return new Date(a.date || 0) - new Date(b.date || 0);
+                    case 'title_az':
+                        return (a.title || '').localeCompare(b.title || '');
+                    case 'title_za':
+                        return (b.title || '').localeCompare(a.title || '');
+                    case 'newest': // Default
+                    default:
+                        return new Date(b.date || 0) - new Date(a.date || 0);
+                }
+            });
+
+
+            if (filteredPhotos.length === 0) {
+                galleryPlaceholderEl.style.display = 'block';
+                galleryPlaceholderEl.textContent = appData.photos.length === 0 ? "Upload your first photo!" : `No photos found for filter "${activeFilter}".`;
+                return;
+            }
+            galleryPlaceholderEl.style.display = 'none';
+
+            filteredPhotos.forEach((photo, index) => {
+                const photoElement = document.createElement('div');
+                photoElement.className = 'relative group aspect-square bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden card'; // Added card for hover effect consistency
+                photoElement.innerHTML = `
+                     <img src="${photo.base64src}" alt="${escapeHTML(photo.title || 'Gallery image')}" class="w-full h-full object-cover cursor-pointer gallery-image-trigger" data-index="${index}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
+                        <h5 class="text-white text-sm font-semibold truncate" title="${escapeHTML(photo.title || '')}">${escapeHTML(photo.title || 'Untitled')}</h5>
+                         <p class="text-xs text-gray-300">${formatDate(photo.date) || 'No Date'}</p>
+                    </div>
+                    <div class="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <button class="action-button favorite-btn ${photo.isFavorite ? 'favorited' : ''}" data-id="${photo.id}" title="${photo.isFavorite ? 'Unfavorite' : 'Favorite'}">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /> </svg>
+                         </button>
+                         <button class="action-button delete-photo-btn" data-id="${photo.id}" title="Delete Photo">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                         </button>
+                    </div>
+                `;
+                galleryGridEl.appendChild(photoElement);
+            });
+        }
+
+
+        function renderNotes() {
+            notesContainerEl.innerHTML = ''; // Clear existing
+            if (appData.notes.length === 0) {
+                notesPlaceholderEl.style.display = 'block';
+                return;
+            }
+            notesPlaceholderEl.style.display = 'none';
+
+             // Sort notes by date, newest first
+             const sortedNotes = [...appData.notes].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            sortedNotes.forEach(note => {
+                const noteElement = document.createElement('div');
+                noteElement.className = 'border border-gray-200 dark:border-gray-700 rounded-lg p-4 relative group bg-teal-50 dark:bg-teal-100/10';
+                noteElement.innerHTML = `
+                     <div class="flex justify-between items-start mb-2">
+                         <h5 class="text-md font-semibold text-teal-700 dark:text-teal-400 flex-1 mr-4">${escapeHTML(note.title)}</h5>
+                         <span class="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">${formatDate(note.date)}</span>
+                    </div>
+                     <p class="text-gray-600 dark:text-gray-300 text-sm whitespace-pre-wrap break-words">${escapeHTML(note.content)}</p>
+                    <div class="absolute top-2 right-2 flex opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <button class="action-button edit-note-btn" data-id="${note.id}" title="Edit Note">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                         </button>
+                         <button class="action-button delete-note-btn" data-id="${note.id}" title="Delete Note">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                         </button>
+                    </div>
+                `;
+                notesContainerEl.appendChild(noteElement);
+            });
+        }
+
+        function renderEventsList(containerElement) {
+             // This function populates the list within the event management modal
+             containerElement.innerHTML = ''; // Clear previous list
+            if (appData.events.length === 0) {
+                containerElement.innerHTML = '<p class="text-gray-500 text-center py-4">No events added yet.</p>';
+                return;
+            }
+
+            // Sort events by date, newest first (or upcoming first?) - let's do upcoming first
+             const sortedEvents = [...appData.events]
+                 .map(event => ({ ...event, dateObj: new Date(event.date + 'T00:00:00') })) // Add date object for sorting
+                 .sort((a, b) => a.dateObj - b.dateObj); // Sort ascending by date
+
+            sortedEvents.forEach(event => {
+                const eventItem = document.createElement('div');
+                eventItem.className = 'flex justify-between items-center p-3 border-b dark:border-gray-600 group';
+                 eventItem.innerHTML = `
+                    <div>
+                        <p class="font-semibold text-gray-800 dark:text-gray-200">${escapeHTML(event.name)}</p>
+                         <p class="text-sm text-gray-600 dark:text-gray-400">${formatDate(event.date)}</p>
+                         ${event.description ? `<p class="text-xs text-gray-500 mt-1">${escapeHTML(event.description)}</p>` : ''}
+                     </div>
+                     <div class="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                         <button class="action-button edit-event-btn" data-id="${event.id}" title="Edit Event">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                         </button>
+                         <button class="action-button delete-event-btn" data-id="${event.id}" title="Delete Event">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                         </button>
+                    </div>
+                `;
+                 containerElement.appendChild(eventItem);
+            });
+        }
+
+        // ---- Event Listeners Setup ----
+
+        function setupEventListeners() {
+            // Theme Toggle
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+                setTheme(newTheme);
+                 saveData(); // Save theme preference
+            });
+
+            // Settings Button
+            settingsBtn.addEventListener('click', openSettingsModal);
+
+             // Add Memory Button
+             document.getElementById('add-memory').addEventListener('click', () => openMemoryModal());
+
+            // Add Note Form Submission
+            addNoteFormEl.addEventListener('submit', handleAddNote);
+
+             // Manage Events Button (in dashboard)
+             document.getElementById('add-event-btn').addEventListener('click', openEventManagerModal);
+
+
+            // Modal Form Submission (Generic)
+            modalFormEl.addEventListener('submit', handleModalFormSubmit);
+
+            // Upload Button (triggers file input)
+            uploadBtn.addEventListener('click', () => imageUploadInput.click());
+
+             // File Input Change
+             imageUploadInput.addEventListener('change', (e) => {
+                 if (e.target.files.length > 0) {
+                    processFiles(e.target.files);
+                     e.target.value = null; // Reset file input
+                 }
+             });
+
+             // Drag and Drop Zone
+             setupDragAndDrop();
+
+            // Gallery Filtering
+             galleryFilterButtonsEl.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON' && e.target.dataset.filter) {
+                    galleryFilterButtonsEl.querySelectorAll('button').forEach(btn => {
+                        btn.classList.remove('filter-btn-active', 'bg-pink-500', 'text-white');
+                         btn.classList.add('bg-gray-200', 'text-gray-700', 'hover:bg-pink-100');
+                    });
+                    e.target.classList.add('filter-btn-active', 'bg-pink-500', 'text-white');
+                     e.target.classList.remove('bg-gray-200', 'text-gray-700', 'hover:bg-pink-100');
+                    renderGallery();
+                }
+            });
+
+             // Gallery Sorting
+             gallerySortEl.addEventListener('change', renderGallery);
+
+            // Image Viewer Controls
+            closeViewerBtn.addEventListener('click', closeImageViewer);
+            prevImageBtn.addEventListener('click', showPreviousImage);
+            nextImageBtn.addEventListener('click', showNextImage);
+             editPhotoDetailsBtn.addEventListener('click', () => {
+                 const currentPhoto = filteredPhotos[currentPhotoIndex];
+                 if (currentPhoto) {
+                     // Close viewer first, then open edit modal
+                     closeImageViewer();
+                     openPhotoModal(currentPhoto.id); // Pass ID to edit modal
+                 }
+             });
+
+
+            // Event Delegation for dynamic content (Edit/Delete/Favorite/View)
+            setupEventDelegation();
+
+            // Smooth Scrolling for Nav Links
+             document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                     const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                         // Calculate offset for fixed navbar
+                         const navbarHeight = document.querySelector('nav').offsetHeight;
+                         const elementPosition = targetElement.getBoundingClientRect().top;
+                         const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 20; // Adjust 20 for extra padding
+
+                         window.scrollTo({
+                             top: offsetPosition,
+                             behavior: "smooth"
+                         });
+                    }
+                });
+            });
+
+            // Keyboard navigation for image viewer
+            document.addEventListener('keydown', (e) => {
+                if (imageViewerModalEl.style.display !== 'none') {
+                    if (e.key === 'ArrowLeft') {
+                        showPreviousImage();
+                    } else if (e.key === 'ArrowRight') {
+                        showNextImage();
+                    } else if (e.key === 'Escape') {
+                        closeImageViewer();
+                    }
+                }
+            });
+        }
+
+         function setupDragAndDrop() {
+             dropZoneEl.addEventListener('dragenter', (e) => {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 dropZoneEl.classList.add('border-pink-500', 'bg-pink-100', 'dark:bg-pink-900/30');
+             });
+
+             dropZoneEl.addEventListener('dragover', (e) => {
+                 e.preventDefault();
+                 e.stopPropagation(); // Necessary to allow drop
+             });
+
+             dropZoneEl.addEventListener('dragleave', (e) => {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 // Only remove styles if the leave event isn't going to a child element
+                 if (!dropZoneEl.contains(e.relatedTarget)) {
+                    dropZoneEl.classList.remove('border-pink-500', 'bg-pink-100', 'dark:bg-pink-900/30');
+                 }
+             });
+
+             dropZoneEl.addEventListener('drop', (e) => {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 dropZoneEl.classList.remove('border-pink-500', 'bg-pink-100', 'dark:bg-pink-900/30');
+                 const files = e.dataTransfer.files;
+                 if (files.length > 0) {
+                     processFiles(files);
+                 }
+             });
+         }
+
+        function setupEventDelegation() {
+            // Memories Grid
+            memoriesGridEl.addEventListener('click', (e) => {
+                const editBtn = e.target.closest('.edit-memory-btn');
+                const deleteBtn = e.target.closest('.delete-memory-btn');
+                if (editBtn) {
+                    openMemoryModal(editBtn.dataset.id);
+                } else if (deleteBtn) {
+                    deleteItem('memory', deleteBtn.dataset.id);
+                }
+            });
+
+            // Gallery Grid
+            galleryGridEl.addEventListener('click', (e) => {
+                const favoriteBtn = e.target.closest('.favorite-btn');
+                const deleteBtn = e.target.closest('.delete-photo-btn');
+                const imageTrigger = e.target.closest('.gallery-image-trigger');
+
+                if (favoriteBtn) {
+                    toggleFavoritePhoto(favoriteBtn.dataset.id);
+                } else if (deleteBtn) {
+                     deleteItem('photo', deleteBtn.dataset.id);
+                } else if (imageTrigger) {
+                    const index = parseInt(imageTrigger.dataset.index, 10);
+                     if (!isNaN(index) && index >= 0 && index < filteredPhotos.length) {
+                        openImageViewer(index);
+                    }
+                }
+            });
+
+            // Notes Container
+            notesContainerEl.addEventListener('click', (e) => {
+                const editBtn = e.target.closest('.edit-note-btn');
+                const deleteBtn = e.target.closest('.delete-note-btn');
+                if (editBtn) {
+                    openNoteModal(editBtn.dataset.id);
+                } else if (deleteBtn) {
+                     deleteItem('note', deleteBtn.dataset.id);
+                }
+            });
+
+            // Event Management List (within Modal) - listener attached when modal opens
+            // See openEventManagerModal()
+        }
+
+        // ---- Action Handlers ----
+
+        function handleAddNote(event) {
+            event.preventDefault();
+            const title = noteTitleInputEl.value.trim();
+            const content = noteContentInputEl.value.trim();
+
+            if (!title || !content) {
+                alert('Please provide both a title and content for the note.');
+                return;
+            }
+
+            const newNote = {
+                id: generateId(),
+                title: title,
+                content: content,
+                date: new Date().toISOString() // Store date in ISO format
+            };
+
+            appData.notes.push(newNote);
+            saveData();
+            renderNotes();
+
+            // Clear form
+            addNoteFormEl.reset();
+             showToast("Note added!"); // Optional feedback
+        }
+
+        function handleModalFormSubmit(event) {
+            event.preventDefault();
+            const formType = modalFormEl.dataset.formType; // We'll set this when opening the modal
+            const id = editIdInput.value;
+
+             console.log(`Submitting modal form for type: ${formType}, ID: ${id}`);
+
+             try {
+                 switch (formType) {
+                     case 'settings':
+                         saveSettings();
+                         break;
+                     case 'memory':
+                         saveMemory(id);
+                         break;
+                     case 'event':
+                         saveEvent(id);
+                         break;
+                     case 'photo':
+                         savePhotoDetails(id);
+                         break;
+                     case 'note': // Added case for editing notes via modal
+                         saveNoteDetails(id);
+                         break;
+                     default:
+                         console.warn("Unknown modal form type:", formType);
+                 }
+                 closeModal('generic-modal');
+             } catch (error) {
+                 console.error("Error saving modal form:", error);
+                 alert(`Error saving: ${error.message}`);
+             }
+        }
+
+
+        function saveSettings() {
+            const name1Input = document.getElementById('user1Name');
+            const name2Input = document.getElementById('user2Name');
+            const startDateInput = document.getElementById('startDate');
+
+            if (!name1Input || !name2Input || !startDateInput) {
+                 throw new Error("Settings form elements not found.");
+            }
+
+            const name1 = name1Input.value.trim() || "Partner 1";
+            const name2 = name2Input.value.trim() || "Partner 2";
+            const startDate = startDateInput.value; // Keep as YYYY-MM-DD string
+
+            // Basic validation for date format (optional but good)
+             if (startDate && !/^\d{4}-\d{2}-\d{2}$/.test(startDate)) {
+                alert("Please enter the start date in YYYY-MM-DD format or leave it empty.");
+                return; // Prevent saving invalid format
+            }
+
+            appData.settings.user1Name = name1;
+            appData.settings.user2Name = name2;
+            appData.settings.startDate = startDate;
+
+            saveData();
+            updateGreeting();
+            updateDashboardCounters();
+             updateCelebrationInfo();
+             showToast("Settings saved!");
+        }
+
+        function saveMemory(id) {
+            const titleInput = document.getElementById('memoryTitle');
+            const dateInput = document.getElementById('memoryDate');
+            const descriptionInput = document.getElementById('memoryDescription');
+            const iconInput = document.getElementById('memoryIcon'); // Optional icon
+
+            if (!titleInput || !dateInput || !descriptionInput || !iconInput) {
+                 throw new Error("Memory form elements not found.");
+             }
+
+            const title = titleInput.value.trim();
+            const date = dateInput.value;
+            const description = descriptionInput.value.trim();
+             const icon = iconInput.value.trim(); // Get icon value
+
+             if (!title || !date || !description) {
+                 throw new Error("Please fill in title, date, and description for the memory.");
+             }
+             if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                throw new Error("Please enter the date in YYYY-MM-DD format.");
+            }
+
+            if (id) { // Editing existing memory
+                const memoryIndex = appData.memories.findIndex(m => m.id === id);
+                if (memoryIndex > -1) {
+                    appData.memories[memoryIndex] = { ...appData.memories[memoryIndex], title, date, description, icon };
+                     showToast("Memory updated!");
+                } else {
+                     throw new Error("Memory to edit not found.");
+                 }
+            } else { // Adding new memory
+                const newMemory = { id: generateId(), title, date, description, icon };
+                appData.memories.push(newMemory);
+                 showToast("Memory added!");
+            }
+
+            saveData();
+            renderMemories();
+            updateDashboardCounters(); // Moments count changes
+        }
+
+         function saveEvent(id) {
+             const nameInput = document.getElementById('eventName');
+             const dateInput = document.getElementById('eventDate');
+             const descriptionInput = document.getElementById('eventDescription'); // Optional
+
+             if (!nameInput || !dateInput || !descriptionInput) {
+                 throw new Error("Event form elements not found.");
+             }
+
+             const name = nameInput.value.trim();
+             const date = dateInput.value;
+             const description = descriptionInput.value.trim();
+
+             if (!name || !date) {
+                 throw new Error("Please fill in at least the event name and date.");
+             }
+              if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                throw new Error("Please enter the date in YYYY-MM-DD format.");
+            }
+
+
+             if (id) { // Editing existing event
+                 const eventIndex = appData.events.findIndex(e => e.id === id);
+                 if (eventIndex > -1) {
+                     appData.events[eventIndex] = { ...appData.events[eventIndex], name, date, description };
+                     showToast("Event updated!");
+                 } else {
+                     throw new Error("Event to edit not found.");
+                 }
+             } else { // Adding new event
+                 const newEvent = { id: generateId(), name, date, description };
+                 appData.events.push(newEvent);
+                 showToast("Event added!");
+             }
+
+             saveData();
+             // Re-render the event list in the modal if it's still open
+             const eventListContainer = document.getElementById('event-list-container'); // Ensure this ID exists in the modal HTML
+             if (eventListContainer) renderEventsList(eventListContainer);
+             updateDashboardCounters(); // Update upcoming event display
+         }
+
+         function savePhotoDetails(id) {
+             const titleInput = document.getElementById('photoTitle');
+             const descriptionInput = document.getElementById('photoDescription');
+             const dateInput = document.getElementById('photoDate');
+             const categorySelect = document.getElementById('photoCategory');
+
+             if (!titleInput || !descriptionInput || !dateInput || !categorySelect || !id) {
+                 throw new Error("Photo details form elements not found or ID missing.");
+             }
+
+             const photoIndex = appData.photos.findIndex(p => p.id === id);
+             if (photoIndex === -1) {
+                 throw new Error("Photo to edit not found.");
+             }
+
+             const title = titleInput.value.trim();
+             const description = descriptionInput.value.trim();
+             const date = dateInput.value;
+             const category = categorySelect.value;
+
+              if (date && date !== '' && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                throw new Error("Please enter the date in YYYY-MM-DD format or leave it empty.");
+              }
+
+
+             appData.photos[photoIndex] = {
+                 ...appData.photos[photoIndex],
+                 title,
+                 description,
+                 date: date || null, // Store as null if empty
+                 category
+             };
+
+             saveData();
+             renderGallery(); // Re-render to show updated details (if visible)
+             showToast("Photo details updated!");
+
+             // If image viewer was open for this image, update its display too
+             if (imageViewerModalEl.style.display !== 'none' && filteredPhotos[currentPhotoIndex]?.id === id) {
+                 updateImageViewerContent(currentPhotoIndex);
+             }
+         }
+
+         function saveNoteDetails(id) {
+             const titleInput = document.getElementById('noteTitleEdit'); // Assume specific IDs for modal inputs
+             const contentInput = document.getElementById('noteContentEdit');
+
+             if (!titleInput || !contentInput || !id) {
+                 throw new Error("Note edit form elements not found or ID missing.");
+             }
+
+             const noteIndex = appData.notes.findIndex(n => n.id === id);
+             if (noteIndex === -1) {
+                 throw new Error("Note to edit not found.");
+             }
+
+             const title = titleInput.value.trim();
+             const content = contentInput.value.trim();
+
+             if (!title || !content) {
+                 throw new Error("Note title and content cannot be empty.");
+             }
+
+             appData.notes[noteIndex] = {
+                 ...appData.notes[noteIndex],
+                 title,
+                 content,
+                 // Optionally update date on edit? Decide based on requirements
+                 // date: new Date().toISOString()
+             };
+
+             saveData();
+             renderNotes(); // Re-render the notes list
+             showToast("Note updated!");
+         }
+
+
+        function deleteItem(type, id) {
+            const item = type === 'memory' ? appData.memories.find(m => m.id === id) :
+                         type === 'note' ? appData.notes.find(n => n.id === id) :
+                         type === 'photo' ? appData.photos.find(p => p.id === id) :
+                         type === 'event' ? appData.events.find(e => e.id === id) : null;
+
+             const itemName = item ? (item.title || item.name || `item ${id.substring(0, 6)}`) : 'item'; // Get a name for confirmation
+
+            if (!showConfirmation(`Are you sure you want to delete this ${type}: "${itemName}"?`)) {
+                return;
+            }
+
+            let itemFoundAndRemoved = false;
+            if (type === 'memory') {
+                appData.memories = appData.memories.filter(m => m.id !== id);
+                renderMemories();
+                 itemFoundAndRemoved = true;
+            } else if (type === 'note') {
+                appData.notes = appData.notes.filter(n => n.id !== id);
+                renderNotes();
+                 itemFoundAndRemoved = true;
+            } else if (type === 'photo') {
+                 appData.photos = appData.photos.filter(p => p.id !== id);
+                 renderGallery(); // Will re-filter and re-sort
+                 itemFoundAndRemoved = true;
+            } else if (type === 'event') {
+                 appData.events = appData.events.filter(e => e.id !== id);
+                 // Re-render event list if modal is open
+                 const eventListContainer = document.getElementById('event-list-container');
+                 if (eventListContainer) renderEventsList(eventListContainer);
+                 itemFoundAndRemoved = true;
+            }
+
+             if (itemFoundAndRemoved) {
+                 saveData();
+                 updateDashboardCounters(); // Update counts
+                 showToast(`${capitalize(type)} deleted successfully.`);
+             } else {
+                 console.warn(`Could not find ${type} with ID ${id} to delete.`);
+                 alert(`Error: Could not find the ${type} to delete.`);
+             }
+        }
+
+         function toggleFavoritePhoto(id) {
+             const photoIndex = appData.photos.findIndex(p => p.id === id);
+             if (photoIndex > -1) {
+                 appData.photos[photoIndex].isFavorite = !appData.photos[photoIndex].isFavorite;
+                 saveData();
+                 renderGallery(); // Re-render to update favorite status visually & potentially filter
+                 showToast(appData.photos[photoIndex].isFavorite ? "Photo favorited!" : "Photo unfavorited.");
+
+                 // Update heart in viewer if it's the current image
+                 if (imageViewerModalEl.style.display !== 'none' && filteredPhotos[currentPhotoIndex]?.id === id) {
+                     // This requires adding a favorite button inside the viewer modal or reflecting the state
+                 }
+
+             } else {
+                 console.warn(`Could not find photo with ID ${id} to toggle favorite.`);
+             }
+         }
+
+        // ---- Modal Handling ----
+
+        function openModal(modalId, title, formType, bodyContentHTML, itemId = null) {
+            const targetModal = document.getElementById(modalId);
+            if (!targetModal) {
+                console.error(`Modal with ID "${modalId}" not found.`);
+                return;
+            }
+
+             // Reset form before populating
+             modalFormEl.reset();
+             editIdInput.value = itemId || ''; // Set the ID for editing, or empty for adding
+             modalFormEl.dataset.formType = formType; // Set the type for the submit handler
+
+             modalTitleEl.textContent = title;
+             modalBodyEl.innerHTML = bodyContentHTML; // Set the dynamic content
+
+            targetModal.style.display = 'flex'; // Show modal (use flex for centering)
+             // Add specific event listeners if needed (e.g., for the event manager list)
+             if (formType === 'eventManager') {
+                 setupModalEventListeners();
+             }
+        }
+
+        function closeModal(modalId) {
+            const targetModal = document.getElementById(modalId);
+            if (targetModal) {
+                targetModal.style.display = 'none';
+                 modalBodyEl.innerHTML = ''; // Clear content
+                 editIdInput.value = '';
+                 modalFormEl.removeAttribute('data-form-type');
+                 // Remove specific listeners if added
+                 removeModalEventListeners();
+            }
+        }
+
+        function openSettingsModal() {
+            const settings = appData.settings;
+            const bodyHTML = `
+                <div>
+                    <label for="user1Name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Partner 1 Name</label>
+                    <input type="text" id="user1Name" value="${escapeHTML(settings.user1Name || '')}" class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="user2Name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Partner 2 Name</label>
+                    <input type="text" id="user2Name" value="${escapeHTML(settings.user2Name || '')}" class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="startDate" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Relationship Start Date</label>
+                    <input type="date" id="startDate" value="${settings.startDate || ''}" class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                     <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Used for counters and anniversary calculations.</p>
+                </div>
+            `;
+            openModal('generic-modal', 'Settings', 'settings', bodyHTML);
+        }
+
+        function openMemoryModal(id = null) {
+            const isEditing = id !== null;
+            const memory = isEditing ? appData.memories.find(m => m.id === id) : null;
+             if (isEditing && !memory) {
+                 alert("Error: Memory not found.");
+                 return;
+             }
+
+            const title = isEditing ? 'Edit Memory' : 'Add New Memory';
+            const bodyHTML = `
+                <div>
+                    <label for="memoryTitle" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Title <span class="text-red-500">*</span></label>
+                    <input type="text" id="memoryTitle" value="${isEditing ? escapeHTML(memory.title) : ''}" required class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="memoryDate" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date <span class="text-red-500">*</span></label>
+                    <input type="date" id="memoryDate" value="${isEditing ? memory.date : ''}" required class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="memoryDescription" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description <span class="text-red-500">*</span></label>
+                    <textarea id="memoryDescription" rows="4" required class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">${isEditing ? escapeHTML(memory.description) : ''}</textarea>
+                </div>
+                 <div>
+                    <label for="memoryIcon" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Emoji Icon (Optional)</label>
+                     <input type="text" id="memoryIcon" value="${isEditing ? escapeHTML(memory.icon || '') : ''}" placeholder="e.g., 🎉, ❤️, ✈️" maxlength="2" class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                 </div>
+            `;
+            openModal('generic-modal', title, 'memory', bodyHTML, id);
+        }
+
+        function openNoteModal(id) { // For editing existing notes
+             const note = appData.notes.find(n => n.id === id);
+             if (!note) {
+                 alert("Error: Note not found.");
+                 return;
+             }
+
+             const title = 'Edit Note';
+             const bodyHTML = `
+                 <div>
+                     <label for="noteTitleEdit" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Title <span class="text-red-500">*</span></label>
+                     <input type="text" id="noteTitleEdit" value="${escapeHTML(note.title)}" required class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                 </div>
+                 <div>
+                     <label for="noteContentEdit" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Content <span class="text-red-500">*</span></label>
+                     <textarea id="noteContentEdit" rows="6" required class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">${escapeHTML(note.content)}</textarea>
+                 </div>
+             `;
+             openModal('generic-modal', title, 'note', bodyHTML, id);
+         }
+
+        function openPhotoModal(id) { // For editing photo details
+            const photo = appData.photos.find(p => p.id === id);
+            if (!photo) {
+                alert("Error: Photo not found.");
+                return;
+            }
+
+            const title = 'Edit Photo Details';
+            // Define categories - could be dynamic later
+            const categories = ['dates', 'trips', 'events', 'other'];
+            const categoryOptions = categories.map(cat =>
+                `<option value="${cat}" ${photo.category === cat ? 'selected' : ''}>${capitalize(cat)}</option>`
+            ).join('');
+
+            const bodyHTML = `
+                 <div class="mb-4">
+                     <img src="${photo.base64src}" alt="Preview" class="max-h-40 w-auto mx-auto rounded">
+                 </div>
+                <div>
+                    <label for="photoTitle" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
+                    <input type="text" id="photoTitle" value="${escapeHTML(photo.title || '')}" class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="photoDescription" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+                    <textarea id="photoDescription" rows="3" class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">${escapeHTML(photo.description || '')}</textarea>
+                </div>
+                <div>
+                    <label for="photoDate" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date Taken</label>
+                     <input type="date" id="photoDate" value="${photo.date || ''}" class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="photoCategory" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
+                    <select id="photoCategory" class="modal-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-300 focus:ring focus:ring-pink-200 focus:ring-opacity-50">
+                         <option value="">-- Select Category --</option>
+                         ${categoryOptions}
+                    </select>
+                </div>
+            `;
+            openModal('generic-modal', title, 'photo', bodyHTML, id);
+        }
+
+
+         function openEventManagerModal() {
+             const title = 'Manage Upcoming Events';
+             // Structure: Add form at the top, list of events below
+             const bodyHTML = `
+                 <div class="mb-6 pb-4 border-b dark:border-gray-600">
+                     <h4 id="event-form-title" class="text-lg font-semibold mb-3 text-teal-600 dark:text-teal-400">Add New Event</h4>
+                     <input type="hidden" id="eventEditId"> <div class="space-y-3">
+                         <div>
+                             <label for="eventName" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Event Name <span class="text-red-500">*</span></label>
+                             <input type="text" id="eventName" required class="modal-input mt-1 block w-full rounded-md text-sm">
+                         </div>
+                         <div>
+                             <label for="eventDate" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Date <span class="text-red-500">*</span></label>
+                             <input type="date" id="eventDate" required class="modal-input mt-1 block w-full rounded-md text-sm">
+                         </div>
+                         <div>
+                             <label for="eventDescription" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Description (Optional)</label>
+                             <textarea id="eventDescription" rows="2" class="modal-input mt-1 block w-full rounded-md text-sm"></textarea>
+                         </div>
+                         <div class="flex justify-end space-x-2">
+                              <button type="button" id="cancel-edit-event-btn" class="px-4 py-1 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 text-sm" style="display: none;">Cancel Edit</button>
+                              <button type="button" id="add-edit-event-btn" class="btn bg-teal-500 hover:bg-teal-600 text-white px-4 py-1 rounded-full shadow text-sm">Add Event</button>
+                         </div>
+                     </div>
+                 </div>
+
+                 <h4 class="text-lg font-semibold mb-3 text-pink-600 dark:text-pink-400">Existing Events</h4>
+                 <div id="event-list-container" class="space-y-2 max-h-60 overflow-y-auto pr-2">
+                     </div>
+             `;
+              // Use 'eventManager' type to distinguish from single item forms
+             openModal('generic-modal', title, 'eventManager', bodyHTML);
+
+             // Render the current list of events into the container
+             const eventListContainer = document.getElementById('event-list-container');
+             if (eventListContainer) {
+                 renderEventsList(eventListContainer);
+             } else {
+                 console.error("Event list container not found in modal.");
+             }
+         }
+
+        // --- Event listeners SPECIFIC to the event manager modal ---
+         let eventModalListenerController = null; // AbortController for cleanup
+
+        function setupModalEventListeners() {
+             // Use AbortController to easily remove listeners later
+             eventModalListenerController = new AbortController();
+             const signal = eventModalListenerController.signal;
+
+             const addEditBtn = document.getElementById('add-edit-event-btn');
+             const cancelEditBtn = document.getElementById('cancel-edit-event-btn');
+             const eventListContainer = document.getElementById('event-list-container');
+
+             if (addEditBtn) {
+                 addEditBtn.addEventListener('click', handleAddOrUpdateEventFromModal, { signal });
+             }
+             if (cancelEditBtn) {
+                 cancelEditBtn.addEventListener('click', resetEventForm, { signal });
+             }
+
+             // Use event delegation for edit/delete buttons within the list
+             if (eventListContainer) {
+                 eventListContainer.addEventListener('click', handleEventListActions, { signal });
+             }
+         }
+
+        function removeModalEventListeners() {
+            if (eventModalListenerController) {
+                eventModalListenerController.abort(); // Remove all listeners associated with this controller
+                eventModalListenerController = null;
+            }
+        }
+
+         function handleAddOrUpdateEventFromModal() {
+             const id = document.getElementById('eventEditId').value;
+             // Reuse the existing saveEvent logic, it checks for ID
+             try {
+                 saveEvent(id); // This already saves, re-renders list, updates dashboard
+                 resetEventForm(); // Clear the form after successful save
+             } catch (error) {
+                 console.error("Error saving event from modal:", error);
+                 alert(`Error: ${error.message}`);
+             }
+         }
+
+        function handleEventListActions(e) {
+            const editBtn = e.target.closest('.edit-event-btn');
+            const deleteBtn = e.target.closest('.delete-event-btn');
+
+            if (editBtn) {
+                const id = editBtn.dataset.id;
+                populateEventFormForEdit(id);
+            } else if (deleteBtn) {
+                const id = deleteBtn.dataset.id;
+                deleteItem('event', id); // This handles confirmation, deletion, saving, and re-rendering the list
+            }
+        }
+
+         function populateEventFormForEdit(id) {
+             const event = appData.events.find(e => e.id === id);
+             if (!event) return;
+
+             document.getElementById('eventEditId').value = event.id;
+             document.getElementById('eventName').value = event.name;
+             document.getElementById('eventDate').value = event.date;
+             document.getElementById('eventDescription').value = event.description || '';
+
+             document.getElementById('event-form-title').textContent = 'Edit Event';
+             document.getElementById('add-edit-event-btn').textContent = 'Update Event';
+             document.getElementById('cancel-edit-event-btn').style.display = 'inline-block'; // Show cancel button
+         }
+
+         function resetEventForm() {
+             document.getElementById('eventEditId').value = '';
+             document.getElementById('eventName').value = '';
+             document.getElementById('eventDate').value = '';
+             document.getElementById('eventDescription').value = '';
+
+             document.getElementById('event-form-title').textContent = 'Add New Event';
+             document.getElementById('add-edit-event-btn').textContent = 'Add Event';
+             document.getElementById('cancel-edit-event-btn').style.display = 'none'; // Hide cancel button
+         }
+
+         // Override the main modal submit handler for the event manager, as actions are handled by specific buttons
+         modalFormEl.removeEventListener('submit', handleModalFormSubmit); // Remove generic listener first
+         modalFormEl.addEventListener('submit', (e) => {
+             e.preventDefault(); // Prevent default form submission
+             const formType = modalFormEl.dataset.formType;
+             if (formType === 'eventManager') {
+                 // Actions are handled by buttons inside, do nothing here
+                 console.log("Event manager modal submit intercepted, actions handled by buttons.");
+             } else {
+                 // Re-add the original handler logic if needed for other modal types
+                 handleModalFormSubmit(e);
+             }
+         });
+
+
+        // ---- Image Handling & Viewer ----
+
+        function processFiles(files) {
+            showLoading("Processing images...");
+             const maxFileSizeMB = 5; // Set a reasonable limit (e.g., 5MB)
+             const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
+             let filesProcessed = 0;
+             let filesSkipped = 0;
+             const totalFiles = files.length;
+
+             // Filter only image files
+             const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+
+             if (imageFiles.length !== totalFiles) {
+                 alert(`Some non-image files were ignored. Processing ${imageFiles.length} image(s).`);
+             }
+             if(imageFiles.length === 0) {
+                 hideLoading();
+                 return;
+             }
+
+
+            imageFiles.forEach(file => {
+                 if (file.size > maxFileSizeBytes) {
+                    console.warn(`Skipping large file: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+                     filesSkipped++;
+                     checkCompletion();
+                     return; // Skip this file
+                 }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const newPhoto = {
+                        id: generateId(),
+                        title: file.name.split('.').slice(0, -1).join('.'), // Basic title from filename
+                        description: "",
+                        date: new Date().toISOString().split('T')[0], // Default to today's date
+                        category: "other", // Default category
+                        base64src: e.target.result,
+                        isFavorite: false
+                    };
+                    appData.photos.push(newPhoto);
+                     filesProcessed++;
+                     checkCompletion();
+                };
+                 reader.onerror = (error) => {
+                     console.error("Error reading file:", file.name, error);
+                     filesSkipped++;
+                     checkCompletion();
+                 };
+                reader.readAsDataURL(file);
+            });
+
+             function checkCompletion() {
+                 if (filesProcessed + filesSkipped === imageFiles.length) {
+                     hideLoading();
+                     saveData();
+                     renderGallery();
+                     updateDashboardCounters();
+                     let message = `${filesProcessed} image(s) added successfully.`;
+                     if (filesSkipped > 0) {
+                         message += ` ${filesSkipped} skipped (too large or error). Max size: ${maxFileSizeMB}MB.`;
+                         alert(message); // Alert if files were skipped
+                     }
+                      showToast(`${filesProcessed} image(s) added.`);
+                 }
+             }
+        }
+
+        function openImageViewer(index) {
+            if (index < 0 || index >= filteredPhotos.length) {
+                console.error("Invalid index for image viewer:", index);
+                return;
+            }
+            currentPhotoIndex = index;
+            updateImageViewerContent(index);
+            imageViewerModalEl.style.display = 'flex';
+            // Disable body scroll
+             document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageViewer() {
+            imageViewerModalEl.style.display = 'none';
+            currentImageEl.src = ""; // Clear image to save memory
+            // Re-enable body scroll
+            document.body.style.overflow = '';
+        }
+
+        function updateImageViewerContent(index) {
+            const photo = filteredPhotos[index];
+            if (!photo) {
+                 console.error("Photo data not found for index:", index);
+                 closeImageViewer();
+                 return;
+             }
+
+            currentImageEl.src = photo.base64src;
+            imageTitleEl.textContent = photo.title || 'Untitled Image';
+            imageDescriptionEl.textContent = photo.description || '';
+            imageDateEl.textContent = formatDate(photo.date) || '';
+
+            // Update navigation button opacity
+            prevImageBtn.style.opacity = index === 0 ? '0.3' : '1';
+            nextImageBtn.style.opacity = index === filteredPhotos.length - 1 ? '0.3' : '1';
+            prevImageBtn.disabled = index === 0;
+            nextImageBtn.disabled = index === filteredPhotos.length - 1;
+             // Pass current photo ID to edit button
+             editPhotoDetailsBtn.dataset.photoId = photo.id;
+        }
+
+        function showPreviousImage() {
+            if (currentPhotoIndex > 0) {
+                currentPhotoIndex--;
+                updateImageViewerContent(currentPhotoIndex);
+            }
+        }
+
+        function showNextImage() {
+            if (currentPhotoIndex < filteredPhotos.length - 1) {
+                currentPhotoIndex++;
+                updateImageViewerContent(currentPhotoIndex);
+            }
+        }
+
+        // ---- Utility Functions ----
+
+        function generateId() {
+             // Simple ID generator (consider UUID for more robustness if needed)
+             // return Date.now().toString(36) + Math.random().toString(36).substring(2);
+            // Use crypto.randomUUID if available (more standard and robust)
+             if (crypto && crypto.randomUUID) {
+                 return crypto.randomUUID();
+             } else {
+                 // Fallback for older environments (less likely in modern browsers)
+                 return Date.now().toString(36) + Math.random().toString(36).substring(2, 15);
+             }
+        }
+
+        function formatDate(dateString) {
+            if (!dateString || isNaN(new Date(dateString).getTime())) {
+                return null; // Return null or an empty string if date is invalid or missing
+            }
+            try {
+                 // Adjust for potential timezone issues by parsing as UTC if only date is present
+                 const date = new Date(dateString.includes('T') ? dateString : dateString + 'T00:00:00');
+                 const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                 return date.toLocaleDateString(undefined, options);
+            } catch (e) {
+                 console.warn("Could not format date:", dateString, e);
+                 return dateString; // Return original string if formatting fails
+            }
+        }
+
+        function escapeHTML(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function capitalize(str) {
+            if (!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function showConfirmation(message) {
+            return confirm(message); // Use browser's built-in confirm dialog
+            // Could replace with a custom modal later if desired
+        }
+
+        function showToast(message, duration = 3000) {
+            // Simple toast notification (can be enhanced)
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.className = 'fixed bottom-5 right-5 bg-teal-500 text-white px-4 py-2 rounded-lg shadow-md z-[1000] transition-opacity duration-300';
+             toast.style.opacity = 0;
+            document.body.appendChild(toast);
+
+             // Fade in
+             setTimeout(() => { toast.style.opacity = 1; }, 50);
+
+            // Fade out and remove
+            setTimeout(() => {
+                 toast.style.opacity = 0;
+                 setTimeout(() => {
+                     if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                     }
+                 }, 300); // Wait for fade out transition
+             }, duration);
+        }
+
+        function showLoading(message = "Loading...") {
+            // You can enhance this to show the message
+             loadingIndicatorEl.querySelector('div').title = message; // Simple title attribute
+             loadingIndicatorEl.style.display = 'flex';
+             // Add a timeout to prevent it getting stuck indefinitely
+             setTimeout(hideLoading, 15000); // Hide after 15 seconds max
+        }
+
+        function hideLoading() {
+            loadingIndicatorEl.style.display = 'none';
+        }
+
+         // ---- Particles.js Initialization ----
+        function initParticles(isDark) {
+             const particleColor = isDark ? "#a0aec0" : "#f687b3"; // Lighter gray for dark, pink for light
+             const linkColor = isDark ? "#4a5568" : "#ee9ca7"; // Darker gray for dark, lighter pink for light
+             const backgroundColor = isDark ? "#1a202c" : "#fef6f6"; // Body background colors
+
+             // Destroy existing instance if it exists
+             if (window.pJSDom && window.pJSDom.length > 0) {
+                 window.pJSDom[0].pJS.fn.vendors.destroypJS();
+                 window.pJSDom = [];
+             }
+
+             particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 60, // Reduced number slightly
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": particleColor
+                    },
+                    "shape": {
+                        "type": "circle", // circle, edge, triangle, polygon, star, image
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                    },
+                    "opacity": {
+                        "value": 0.4, // Slightly more visible
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 0.5,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": linkColor,
+                        "opacity": 0.3, // Slightly more visible links
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2, // Slightly slower movement
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab" // grab, bubble, repulse
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push" // push, remove, bubble, repulse
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 0.7 // More visible grab line
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            // Optional: Set the background color of the particles container itself if needed
+             // document.getElementById('particles-js').style.backgroundColor = backgroundColor;
+        }
+
+
+        // ---- Counter Animation (Optional) ----
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter-value');
+            const speed = 200; // Lower number = faster animation
+
+            counters.forEach(counter => {
+                const target = +counter.textContent; // Use textContent now
+                counter.textContent = '0'; // Start from 0
+
+                const animate = () => {
+                    const value = +counter.textContent;
+                    const increment = Math.max(1, Math.ceil(target / speed)); // Ensure increment is at least 1
+
+                    if (value < target) {
+                        counter.textContent = `${Math.min(value + increment, target)}`;
+                        requestAnimationFrame(animate);
+                    } else {
+                        counter.textContent = target; // Ensure it ends exactly on target
+                    }
+                };
+                requestAnimationFrame(animate);
+            });
+        }
+
+    </script>
+
 </body>
 </html>
